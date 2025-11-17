@@ -1,9 +1,3 @@
-# Clear docker
-```bash
-docker rm -f $(docker ps -aq)
-docker system prune --all --volumes --force
-```
-
 # Собрать JAR файл
 ```bash
 mvn clean package -DskipTests
