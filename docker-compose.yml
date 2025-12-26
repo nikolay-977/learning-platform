@@ -1,0 +1,46 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: learning-platform-db
+    environment:
+      POSTGRES_DB: learning_db
+      POSTGRES_USER: learning_user
+      POSTGRES_PASSWORD: learning_password
+      POSTGRES_INITDB_ARGS: "--encoding=UTF8"
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U learning_user -d learning_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - learning-network
+
+  app:
+    build: .
+    container_name: learning-platform-app
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/learning_db
+      SPRING_DATASOURCE_USERNAME: learning_user
+      SPRING_DATASOURCE_PASSWORD: learning_password
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "true"
+    ports:
+      - "8080:8080"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./uploads:/app/uploads
+    networks:
+      - learning-network
+
+networks:
+  learning-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
