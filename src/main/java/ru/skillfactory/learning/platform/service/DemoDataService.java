@@ -78,30 +78,11 @@ public class DemoDataService {
     private void createDemoUsers() {
         log.info("Creating demo users...");
 
-        // Создаем администратора
-        CreateUserRequest adminRequest = CreateUserRequest.builder()
-                .name("Admin User")
-                .email("admin@platform.edu")
-                .role("ADMIN")
-                .build();
-        UserResponse admin = userService.createUser(adminRequest);
-        log.info("Created admin user: {}", admin.getEmail());
-
         // Создаем преподавателей
         List<CreateUserRequest> teacherRequests = List.of(
                 CreateUserRequest.builder()
                         .name("Professor John Smith")
                         .email("john.smith@university.edu")
-                        .role("TEACHER")
-                        .build(),
-                CreateUserRequest.builder()
-                        .name("Dr. Alice Johnson")
-                        .email("alice.johnson@university.edu")
-                        .role("TEACHER")
-                        .build(),
-                CreateUserRequest.builder()
-                        .name("Prof. Robert Chen")
-                        .email("robert.chen@university.edu")
                         .role("TEACHER")
                         .build()
         );
@@ -117,28 +98,17 @@ public class DemoDataService {
                         .name("Alice Johnson")
                         .email("alice.johnson@student.edu")
                         .role("STUDENT")
-                        .build(),
-                CreateUserRequest.builder()
-                        .name("Bob Wilson")
-                        .email("bob.wilson@student.edu")
-                        .role("STUDENT")
-                        .build(),
-                CreateUserRequest.builder()
-                        .name("Carol Davis")
-                        .email("carol.davis@student.edu")
-                        .role("STUDENT")
-                        .build(),
-                CreateUserRequest.builder()
-                        .name("David Miller")
-                        .email("david.miller@student.edu")
-                        .role("STUDENT")
-                        .build(),
-                CreateUserRequest.builder()
-                        .name("Eva Brown")
-                        .email("eva.brown@student.edu")
-                        .role("STUDENT")
                         .build()
         );
+
+        // Создаем администратора
+        CreateUserRequest adminRequest = CreateUserRequest.builder()
+                .name("Admin User")
+                .email("admin@platform.edu")
+                .role("ADMIN")
+                .build();
+        UserResponse admin = userService.createUser(adminRequest);
+        log.info("Created admin user: {}", admin.getEmail());
 
         for (CreateUserRequest request : studentRequests) {
             UserResponse student = userService.createUser(request);

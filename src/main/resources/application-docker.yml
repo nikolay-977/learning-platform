@@ -3,7 +3,7 @@ spring:
     name: learning-platform
     demo:
       data:
-        enabled: false  # Включить/выключить предзаполнение демо-данными
+        enabled: true  # Включить/выключить предзаполнение демо-данными
         clear: false
   datasource:
     url: jdbc:postgresql://postgres:5432/learning_db
