@@ -1,6 +1,10 @@
 spring:
   application:
     name: learning-platform
+    demo:
+      data:
+        enabled: true  # Включить/выключить предзаполнение демо-данными
+        clear: false
   datasource:
     url: jdbc:postgresql://localhost:5432/learning_db
     username: learning_user
@@ -33,11 +37,3 @@ logging:
 
 file:
   upload-dir: uploads
-
-profile:
-  default:
-    avatar:
-      url: /images/default-avatar.png
-    bio:
-      student: "Welcome to the learning platform!"
-      teacher: "Experienced instructor ready to help you learn"
